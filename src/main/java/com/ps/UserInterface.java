@@ -1,5 +1,7 @@
 package com.ps;
 
+import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class UserInterface {
@@ -14,8 +16,7 @@ public class UserInterface {
                     (1) New order
                     (0) Exit
                     """);
-            System.out.print("Your command: ");
-            mainMenuCommand = commandScan.nextByte();
+            mainMenuCommand = handleMenuInputMismatch("Your command: ");
 
             switch (mainMenuCommand) {
                 case 1:
@@ -67,6 +68,76 @@ public class UserInterface {
     }
 
     private static void handleAddSandwich() {
+        byte size;
+        String breadType;
+
+        boolean validInput = false;
+        byte sizeSelector;
+        do {
+            System.out.print("""
+                    ======== NEW SANDWICH ========
+                    What size sandwich would you like?
+                    (1) 4"
+                    (2) 8"
+                    (3) 12"
+                    
+                    (0) Cancel
+                    """);
+            sizeSelector = handleMenuInputMismatch("Your selection: ");
+
+            switch (sizeSelector) {
+                case 1:
+                    size = 4;
+                    validInput = true;
+                    break;
+                case 2:
+                    size = 8;
+                    validInput = true;
+
+                    break;
+                case 3:
+                    size = 12;
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid option, please try again.");
+            }
+        } while(sizeSelector != 0 && !validInput);
+        validInput = false;
+
+        byte breadTypeSelector;
+        do {
+            System.out.print("""
+                    ---- BREAD ----
+                    What bread type would you like?
+                    (1) White
+                    (2) Wheat
+                    (3) Rye
+                    (4) Wrap
+                    """);
+            breadTypeSelector = handleMenuInputMismatch("Your selection: ");
+
+            switch (breadTypeSelector) {
+                case 1:
+                    breadType = "White";
+                    validInput = true;
+                    break;
+                case 2:
+                    breadType = "Wheat";
+                    validInput = true;
+                    break;
+                case 3:
+                    breadType = "Rye";
+                    validInput = true;
+                    break;
+                case 4:
+                    breadType = "Wrap";
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid selection, try again.");
+            }
+        } while(breadTypeSelector != 0 && !validInput);
 
     }
 
@@ -82,4 +153,20 @@ public class UserInterface {
 
     }
 
+    public static byte handleMenuInputMismatch(String prompt) {
+        byte userInput = -1;
+        boolean validInput = false;
+
+        while(!validInput) {
+            System.out.print(prompt);
+            try {
+                userInput = commandScan.nextByte();
+                validInput = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid entry, please enter a number.");
+                commandScan.nextLine();
+            }
+        }
+        return userInput;
+    }
 }
