@@ -3,6 +3,7 @@ package com.ps;
 public class Drink implements Product {
     private String name;
     private byte size;
+    private double price;
 
     public Drink(String name, byte size) {
         this.name = name;
@@ -28,5 +29,9 @@ public class Drink implements Product {
 
     public void setSize(byte size) {
         this.size = size;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
