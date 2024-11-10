@@ -7,12 +7,14 @@ public class Sandwich implements Product{
     private byte size;
     private boolean isToasted;
     private ArrayList<Topping> toppings;
+    private double price;
 
-    public Sandwich(String breadType, byte size, boolean isToasted, ArrayList<Topping> toppings) {
+    public Sandwich(String breadType, byte size, boolean isToasted, ArrayList<Topping> toppings, double price) {
         this.breadType = breadType;
         this.size = size;
         this.isToasted = isToasted;
         this.toppings = new ArrayList<>();
+        this.price = price;
     }
 
     @Override
@@ -57,5 +59,9 @@ public class Sandwich implements Product{
 
     public void setToppings(ArrayList<Topping> toppings) {
         this.toppings = toppings;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 }
