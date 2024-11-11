@@ -3,7 +3,7 @@ package com.ps;
 public class Topping implements Product{
     private String name;
     private String type;
-    double price;
+    private double price;
     private boolean hasExtra;
 
     public Topping(String type, double price) {
