@@ -13,6 +13,10 @@ public class Order {
         this.products = new ArrayList<>();
     }
 
+    public Order(ArrayList<Product> products) {
+        this.products = products;
+    }
+
     public static void createOrder() {}
 
     public static void reviewOrder() {}

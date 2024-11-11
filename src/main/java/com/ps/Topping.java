@@ -1,20 +1,32 @@
 package com.ps;
 
-public class Topping {
+public class Topping implements Product{
     private String name;
     private String type;
     double price;
-    private boolean extraMeat;
-    private boolean extraCheese;
+    private boolean hasExtra;
 
-    public Topping(String name, String type, double price, boolean extraMeat, boolean extraCheese) {
+    public Topping(String type, double price) {
+        this.type = type;
+        this.price = price;
+    }
+
+    public Topping(String name, String type, double price) {
         this.name = name;
         this.type = type;
         this.price = price;
-        this.extraMeat = extraMeat;
-        this.extraCheese = extraCheese;
     }
 
+    public Topping(String name, String type, double price, boolean hasExtra) {
+        this.name = name;
+        this.type = type;
+        this.price = price;
+        this.hasExtra = hasExtra;
+    }
+
+    public double getPrice() {
+        return 0;
+    }
     public String getType() {
         return type;
     }
@@ -23,27 +35,23 @@ public class Topping {
         this.type = type;
     }
 
-    public boolean isExtraMeat() {
-        return extraMeat;
-    }
-
-    public void setExtraMeat(boolean extraMeat) {
-        this.extraMeat = extraMeat;
-    }
-
-    public boolean isExtraCheese() {
-        return extraCheese;
-    }
-
-    public void setExtraCheese(boolean extraCheese) {
-        this.extraCheese = extraCheese;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
     public void setPrice(double price) {
         this.price = price;
+    }
+
+    public boolean hasExtra() {
+        return hasExtra;
+    }
+
+    public void setHasExtra(boolean hasExtra) {
+        this.hasExtra = hasExtra;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

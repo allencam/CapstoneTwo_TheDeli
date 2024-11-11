@@ -28,7 +28,7 @@ public class UserInterface {
                 default:
                     System.out.println("Invalid entry, try again.");
             }
-        } while(mainMenuCommand != 0);
+        } while (mainMenuCommand != 0);
     }
 
     private static void handleNewOrder() {
@@ -40,11 +40,11 @@ public class UserInterface {
                     (1) Add sandwich
                     (2) Add Drink
                     (3) Add Chips
-                                    
+                                        
                     (4) Review/change order
                     (0) Cancel order
-                    """);
-            orderScreenCommand = commandScan.nextByte();
+                    """); // TODO: Add a conditional that checks for items in order and only display 4, 0, if there are items. Else add back option.
+            orderScreenCommand = handleMenuInputMismatch("Your selection: ");
 
             switch (orderScreenCommand) {
                 case 1:
@@ -70,6 +70,7 @@ public class UserInterface {
     private static void handleAddSandwich() {
         byte size;
         String breadType;
+        ArrayList<Topping> toppings = new ArrayList<>();
 
         boolean validInput = false;
         byte sizeSelector;
@@ -80,7 +81,7 @@ public class UserInterface {
                     (1) 4"
                     (2) 8"
                     (3) 12"
-                    
+                                        
                     (0) Cancel
                     """);
             sizeSelector = handleMenuInputMismatch("Your selection: ");
@@ -102,7 +103,7 @@ public class UserInterface {
                 default:
                     System.out.println("Invalid option, please try again.");
             }
-        } while(sizeSelector != 0 && !validInput);
+        } while (sizeSelector != 0 && !validInput);
         validInput = false;
 
         byte breadTypeSelector;
@@ -137,7 +138,80 @@ public class UserInterface {
                 default:
                     System.out.println("Invalid selection, try again.");
             }
-        } while(breadTypeSelector != 0 && !validInput);
+        } while (breadTypeSelector != 0 && !validInput);
+        validInput = false;
+
+        byte meatSelector;
+        Topping meat = new Topping("meat", 0); // TODO: Revisit this once I've done the logic to handle price according to sandwich size.
+        do {
+            System.out.println("""
+                    ---- MEAT ----
+                    What meat would you like?
+                    (1) Steak
+                    (2) Ham
+                    (3) Salami
+                    (4) Roast Beef
+                    (5) Chicken
+                    (6) Bacon
+                                        
+                    (0) None
+                    """);
+            meatSelector = handleMenuInputMismatch("Your selection: ");
+
+            switch (meatSelector) {
+                case 1:
+                    meat.setName("Steak");
+                    toppings.add(meat);
+                    validInput = true;
+                    break;
+                case 2:
+                    meat.setName("Ham");
+                    toppings.add(meat);
+                    validInput = true;
+                    break;
+                case 3:
+                    meat.setName("Salami");
+                    toppings.add(meat);
+                    validInput = true;
+                    break;
+                case 4:
+                    meat.setName("Roast beef");
+                    validInput = true;
+                    toppings.add(meat);
+                    break;
+                case 5:
+                    meat.setName("Chicken");
+                    validInput = true;
+                    toppings.add(meat);
+                    break;
+                case 6:
+                    meat.setName("Bacon");
+                    validInput = true;
+                    toppings.add(meat);
+                    break;
+                case 0:
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid selection, try again.");
+            }
+        } while (meatSelector != 0 && !validInput);
+
+        validInput = false;
+        // Ask user if they want extra meat, only if they selected a meat
+        if (!toppings.isEmpty()) {
+            do {
+                System.out.println("Would you like to add extra meat? (1) Yes or (2) No");
+                if (handleMenuInputMismatch("Your selection") == 1) {
+                    meat.setHasExtra(true);
+                    validInput = true;
+                } else if (handleMenuInputMismatch("Your selection") == 0) {
+                    validInput = true;
+                } else {
+                    System.out.println("Input invalid, try again.");
+                }
+            } while (validInput = true);
+        }
 
     }
 
@@ -157,7 +231,7 @@ public class UserInterface {
         byte userInput = -1;
         boolean validInput = false;
 
-        while(!validInput) {
+        while (!validInput) {
             System.out.print(prompt);
             try {
                 userInput = commandScan.nextByte();
