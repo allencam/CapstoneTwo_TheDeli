@@ -44,6 +44,7 @@ public class UserInterface {
                     (4) Review/change order
                     (0) Cancel order
                     """); // TODO: Add a conditional that checks for items in order and only display 4, 0, if there are items. Else add back option.
+            // TODO: Add a running total line if there are products in the order
             orderScreenCommand = handleMenuInputMismatch("Your selection: ");
 
             switch (orderScreenCommand) {
@@ -68,8 +69,8 @@ public class UserInterface {
     }
 
     private static void handleAddSandwich() {
-        byte size;
-        String breadType;
+        byte size = 0;
+        String breadType = "";
         ArrayList<Topping> toppings = new ArrayList<>();
 
         boolean validInput = false;
@@ -141,78 +142,152 @@ public class UserInterface {
         } while (breadTypeSelector != 0 && !validInput);
         validInput = false;
 
-        byte meatSelector;
-        Topping meat = new Topping("meat", 0); // TODO: Revisit this once I've done the logic to handle price according to sandwich size.
-        do {
-            System.out.println("""
-                    ---- MEAT ----
-                    What meat would you like?
-                    (1) Steak
-                    (2) Ham
-                    (3) Salami
-                    (4) Roast Beef
-                    (5) Chicken
-                    (6) Bacon
-                                        
-                    (0) None
-                    """);
-            meatSelector = handleMenuInputMismatch("Your selection: ");
+//        byte meatSelector;
+//        Topping meat = new Topping("meat", 0); // TODO: Revisit this once I've done the logic to handle price according to sandwich size.
+//        do {
+//            System.out.println("""
+//                    ---- MEAT ----
+//                    What meat would you like?
+//                    (1) Steak
+//                    (2) Ham
+//                    (3) Salami
+//                    (4) Roast Beef
+//                    (5) Chicken
+//                    (6) Bacon
+//
+//                    (0) None
+//                    """);
+//            meatSelector = handleMenuInputMismatch("Your selection: ");
+//
+//            switch (meatSelector) {
+//                case 1:
+//                    meat.setName("Steak");
+//                    toppings.add(meat);
+//                    validInput = true;
+//                    break;
+//                case 2:
+//                    meat.setName("Ham");
+//                    toppings.add(meat);
+//                    validInput = true;
+//                    break;
+//                case 3:
+//                    meat.setName("Salami");
+//                    toppings.add(meat);
+//                    validInput = true;
+//                    break;
+//                case 4:
+//                    meat.setName("Roast beef");
+//                    validInput = true;
+//                    toppings.add(meat);
+//                    break;
+//                case 5:
+//                    meat.setName("Chicken");
+//                    validInput = true;
+//                    toppings.add(meat);
+//                    break;
+//                case 6:
+//                    meat.setName("Bacon");
+//                    validInput = true;
+//                    toppings.add(meat);
+//                    break;
+//                case 0:
+//                    validInput = true;
+//                    break;
+//                default:
+//                    System.out.println("Invalid selection, try again.");
+//            }
+//        } while (meatSelector != 0 && !validInput);
+//
+//        validInput = false;
+//        // Ask user if they want extra meat, only if they selected a meat
+//        if (!toppings.isEmpty()) {
+//            do {
+//                System.out.println("Would you like to add extra meat? (1) Yes or (2) No");
+//                if (handleMenuInputMismatch("Your selection") == 1) {
+//                    meat.setHasExtra(true);
+//                    validInput = true;
+//                } else if (handleMenuInputMismatch("Your selection: ") == 0) {
+//                    validInput = true;
+//                } else {
+//                    System.out.println("Input invalid, try again.");
+//                }
+//            } while (!validInput);
+//        }
+        handleAddToppings();
 
-            switch (meatSelector) {
+        boolean wantToasted = false;
+        byte wantToastedSelector;
+        do{
+            System.out.println("Would you like this sandwich toasted? (1) Yes or (2) no");
+            wantToastedSelector = handleMenuInputMismatch("Your selection: ");
+
+            switch (wantToastedSelector) {
                 case 1:
-                    meat.setName("Steak");
-                    toppings.add(meat);
-                    validInput = true;
-                    break;
+                    wantToasted = true;
                 case 2:
-                    meat.setName("Ham");
-                    toppings.add(meat);
-                    validInput = true;
-                    break;
-                case 3:
-                    meat.setName("Salami");
-                    toppings.add(meat);
-                    validInput = true;
-                    break;
-                case 4:
-                    meat.setName("Roast beef");
-                    validInput = true;
-                    toppings.add(meat);
-                    break;
-                case 5:
-                    meat.setName("Chicken");
-                    validInput = true;
-                    toppings.add(meat);
-                    break;
-                case 6:
-                    meat.setName("Bacon");
-                    validInput = true;
-                    toppings.add(meat);
-                    break;
-                case 0:
-                    validInput = true;
-                    break;
+                    wantToasted = false;
                 default:
-                    System.out.println("Invalid selection, try again.");
+                    System.out.println("Invalid input, try again.");
             }
-        } while (meatSelector != 0 && !validInput);
+        }while (validInput = false);
 
-        validInput = false;
-        // Ask user if they want extra meat, only if they selected a meat
-        if (!toppings.isEmpty()) {
-            do {
-                System.out.println("Would you like to add extra meat? (1) Yes or (2) No");
-                if (handleMenuInputMismatch("Your selection") == 1) {
-                    meat.setHasExtra(true);
-                    validInput = true;
-                } else if (handleMenuInputMismatch("Your selection") == 0) {
-                    validInput = true;
-                } else {
-                    System.out.println("Input invalid, try again.");
+        Sandwich sandwich = new Sandwich(breadType,size,wantToasted,toppings);
+    }
+
+    private static void handleAddToppings() {
+        String[] meats = {"Steak", "Ham", "Salami", "Roast beef", "Chicken", "Bacon"}; // can have extra, so allow 2 selections of either the same meat or 2 diff meats
+        String[] cheeses = {"American", "Provolone", "Cheddar", "Swiss"}; // same as above
+        String[] vegetables = {"Lettuce", "Peppers", "Onions", "Tomatoes", "Jalapeños", "Cucumbers", "Pickles", "Guacamole", "Mushrooms"};
+        String[] sauces = {"Mayo", "Mustard", "Ketchup", "Ranch", "Thousand Islands", "Vinaigrette"};
+        String[] sides = {"Au jus", "Sauce"};
+
+        byte toppingSelector;
+        do { // TODO: Find a way to dry out this code later, also looks
+            int toppingIndex = 1;
+
+            System.out.println("---- Meats ----");
+            for(int i = 0; i < meats.length; i++, toppingIndex++) {
+                System.out.printf("(%d) %s ", toppingIndex, meats[i]);
+                if(toppingIndex % 4 == 0){
+                    System.out.print("\n");
                 }
-            } while (validInput = true);
-        }
+            }
 
+            System.out.println("\n---- Cheeses ----");
+            for(int i = 0; i < cheeses.length; i++, toppingIndex++) {
+                System.out.printf("(%d) %s ", toppingIndex, cheeses[i]);
+                if(i % 4 == 0){
+                    System.out.print("\n");
+                }
+            }
+
+            System.out.println("\n---- Vegetables ----");
+            for(int i = 0; i < vegetables.length; i++, toppingIndex++) {
+                System.out.printf("(%d) %s ", toppingIndex, vegetables[i]);
+                if(i % 4 == 0){
+                    System.out.print("\n");
+                }
+            }
+
+            System.out.println("\n---- Sauces ----");
+            for(int i = 0; i < sauces.length; i++, toppingIndex++) {
+                System.out.printf("(%d) %s ", toppingIndex, sauces[i]);
+                if(i % 4 == 0){
+                    System.out.print("\n");
+                }
+            }
+
+            System.out.println("\n---- Sides ----");
+            for(int i = 0; i < cheeses.length; i++, toppingIndex++) {
+                System.out.printf("(%d) %s ", toppingIndex, cheeses[i]);
+                if(i % 4 == 0){
+                    System.out.print("\n");
+                }
+            }
+            toppingSelector = handleMenuInputMismatch("\nYour selection: ");
+            // TODO: Handle adding toppings to arraylist
+
+        } while(toppingSelector != 0);
     }
 
     private static void handleAddDrink() {

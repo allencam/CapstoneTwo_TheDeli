@@ -9,12 +9,12 @@ public class Sandwich implements Product{
     private ArrayList<Topping> toppings;
     private double price;
 
-    public Sandwich(String breadType, byte size, boolean isToasted, ArrayList<Topping> toppings, double price) {
+    public Sandwich(String breadType, byte size, boolean isToasted, ArrayList<Topping> toppings) {
         this.breadType = breadType;
         this.size = size;
         this.isToasted = isToasted;
         this.toppings = new ArrayList<>();
-        this.price = price;
+        this.price = getPrice();
     }
 
     @Override
