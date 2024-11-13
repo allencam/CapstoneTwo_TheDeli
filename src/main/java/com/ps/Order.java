@@ -3,21 +3,17 @@ package com.ps;
 import java.util.ArrayList;
 
 public class Order {
-    private short orderId;
     private double total;
     private ArrayList<Product> products;
 
-    public Order(short orderId, double total, ArrayList<Product> products) {
-        this.orderId = orderId;
+    public Order(double total, ArrayList<Product> products) {
         this.total = total;
         this.products = new ArrayList<>();
     }
 
-    public Order(ArrayList<Product> products) {
-        this.products = products;
+    public Order() {
+        this.products = new ArrayList<>();
     }
-
-    public static void createOrder() {}
 
     public static void reviewOrder() {}
 
@@ -29,14 +25,8 @@ public class Order {
 
     private static void editProduct() {}
 
-    private static void addProduct(Product product) {}
-
-    public short getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(short orderId) {
-        this.orderId = orderId;
+    public void addProduct(Product product) {
+        this.products.add(product);
     }
 
     public double getTotal() {

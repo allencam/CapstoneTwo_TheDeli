@@ -2,17 +2,23 @@ package com.ps;
 
 public class Drink implements Product {
     private String name;
-    private byte size;
+    private String size;
     private double price;
 
-    public Drink(String name, byte size) {
+    public Drink(String name, String size) {
         this.name = name;
         this.size = size;
+        this.price = getPrice();
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return switch (this.size) {
+            case "Small" -> 2.00;
+            case "Medium" -> 2.50;
+            case "Large" -> 3.00;
+            default -> 0;
+        };
     }
 
     public String getName() {
@@ -23,11 +29,11 @@ public class Drink implements Product {
         this.name = name;
     }
 
-    public byte getSize() {
+    public String getSize() {
         return size;
     }
 
-    public void setSize(byte size) {
+    public void setSize(String size) {
         this.size = size;
     }
 

@@ -7,6 +7,7 @@ import java.util.Scanner;
 public class UserInterface {
     // MENUS AND APPLICATION FLOW HERE
     static Scanner commandScan = new Scanner(System.in);
+    private static Order order = new Order();
 
     public static void display() { // THIS IS THE MAIN MENU
         byte mainMenuCommand;
@@ -290,8 +291,76 @@ public class UserInterface {
         } while(toppingSelector != 0);
     }
 
-    private static void handleAddDrink() {
+    public static void handleAddDrink() {
+        String size = "";
+        String name = "";
 
+        byte sizeSelector;
+        boolean validInput = false;
+        do {
+            System.out.println("""
+                    What size drink would you like?
+                    1) Small
+                    2) Medium
+                    3) Large
+                    """);
+            sizeSelector = handleMenuInputMismatch("Your selection: ");
+            switch (sizeSelector) {
+                case 1:
+                    size = "Small";
+                    validInput = true;
+                    break;
+                case 2:
+                    size = "Medium";
+                    validInput = true;
+                    break;
+                case 3:
+                    size = "Large";
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid input, try again.");
+            }
+        } while (!validInput);
+        validInput = false;
+
+        byte drinkSelector;
+        do {
+            System.out.println("""
+                    Here are our available drinks, choose one:
+                    (1) Lemonade
+                    (2) Dr. Pepper
+                    (3) Coca Cola
+                    (4) Sprite
+                    (5) Root Beer
+                    """);
+            drinkSelector = handleMenuInputMismatch("Your selection: ");
+            switch (drinkSelector) {
+                case 1:
+                    name = "Lemonade";
+                    validInput = true;
+                    break;
+                case 2:
+                    name = "Dr. Pepper";
+                    validInput = true;
+                    break;
+                case 3:
+                    name = "Coca cola";
+                    validInput = true;
+                    break;
+                case 4:
+                    name = "Sprite";
+                    validInput = true;
+                    break;
+                case 5:
+                    name = "Root beer";
+                    validInput = true;
+                    break;
+                default:
+                    System.out.println("Invalid input, try again.");
+            }
+        } while (!validInput);
+        order.addProduct(new Drink(name, size));
     }
 
     private static void handleAddChips() {
@@ -318,4 +387,5 @@ public class UserInterface {
         }
         return userInput;
     }
+
 }
