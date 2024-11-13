@@ -4,14 +4,14 @@ public class Chips implements Product {
     private String name;
     private double price;
 
-    public Chips(String name, double price) {
+    public Chips(String name) {
         this.name = name;
-        this.price = price;
+        this.price = getPrice();
     }
 
     @Override
     public double getPrice() {
-        return 0;
+        return 1.50;
     }
 
     public String getName() {
@@ -22,7 +22,8 @@ public class Chips implements Product {
         this.name = name;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
+    @Override
+    public String toString() {
+        return name + ", ";
     }
 }

@@ -361,10 +361,51 @@ public class UserInterface {
             }
         } while (!validInput);
         order.addProduct(new Drink(name, size));
-    }
+    } //done
 
     private static void handleAddChips() {
+        String name = "";
+        byte chipsSelector;
+        do {
 
+            System.out.println("""
+                    Here are the chips we have available, select as many as you would like:
+                    (1) BBQ
+                    (2) Jalapeño
+                    (3) Salt & Vinegar
+                    (4) Pretzels
+                    
+                    (0) Done
+                    """);
+            System.out.println("Chips currently in order: ");
+            for(Product product: order.getProducts()) {
+                if(product instanceof Chips) {
+                    System.out.println(product);
+                }
+            }
+            chipsSelector = handleMenuInputMismatch("Your selection: ");
+
+            switch (chipsSelector) {
+                case 1:
+                    name = "BBQ";
+                    break;
+                case 2:
+                    name = "Jalapeño";
+                    break;
+                case 3:
+                    name = "Salt & Vinegar";
+                    break;
+                case 4:
+                    name = "Pretzels";
+                    break;
+                default:
+                    System.out.println("Invalid selection, try again.");
+            }
+            if(!name.equals("")) {
+                order.addProduct(new Chips(name));
+            }
+
+        } while(chipsSelector != 0);
     }
 
     private static void handleReviewOrder() {

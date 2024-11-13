@@ -21,7 +21,9 @@ public class Order {
 
     public static void submitOrder(Order order) {}
 
-    public static void removeProduct(Product product) {}
+    public void removeProduct(Product product) {
+        this.products.remove(product);
+    }
 
     private static void editProduct() {}
 
