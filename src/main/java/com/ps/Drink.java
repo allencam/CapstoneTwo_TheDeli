@@ -37,7 +37,4 @@ public class Drink implements Product {
         this.size = size;
     }
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
 }

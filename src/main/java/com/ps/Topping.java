@@ -6,25 +6,29 @@ public class Topping implements Product{
     private double price;
     private boolean hasExtra;
 
-    public Topping(String type, double price) {
+    public Topping(String type) {
         this.type = type;
-        this.price = price;
+        this.price = getPrice();
     }
 
-    public Topping(String name, String type, double price) {
+    public Topping(String name, String type) {
         this.name = name;
         this.type = type;
-        this.price = price;
+        this.price = getPrice();
     }
 
-    public Topping(String name, String type, double price, boolean hasExtra) {
+    public Topping(String name, String type, boolean hasExtra) {
         this.name = name;
         this.type = type;
-        this.price = price;
+        this.price = getPrice();
         this.hasExtra = hasExtra;
     }
 
     public double getPrice() {
+        return 0;
+    }
+
+    public double getPrice(Sandwich sandwich) { //
         return 0;
     }
     public String getType() {
@@ -53,5 +57,10 @@ public class Topping implements Product{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

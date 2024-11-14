@@ -15,8 +15,6 @@ public class Order {
         this.products = new ArrayList<>();
     }
 
-    public static void reviewOrder() {}
-
     public static void getOrderTotal(Order order) {}
 
     public static void submitOrder(Order order) {}
