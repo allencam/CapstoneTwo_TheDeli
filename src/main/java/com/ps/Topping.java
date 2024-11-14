@@ -1,5 +1,7 @@
 package com.ps;
 
+import java.util.List;
+
 public class Topping implements Product{
     private String name;
     private String type;
@@ -28,9 +30,45 @@ public class Topping implements Product{
         return 0;
     }
 
-    public double getPrice(Sandwich sandwich) { //
+    public double getPrice(Sandwich sandwich) { 
+        byte sandwichSize = sandwich.getSize();
+
+        if (this.type.equals("cheese")) {
+            if (hasExtra) { // Extra cheese prices
+                return switch (sandwichSize) {
+                    case 4 -> 0.75;
+                    case 8 -> 1.50;
+                    case 12 -> 2.25;
+                    default -> throw new IllegalStateException("Unexpected value: " + sandwichSize);
+                };
+            } else { // Normal cheese prices
+                return switch (sandwichSize) {
+                    case 4 -> 0.75;
+                    case 8 -> 1.50;
+                    case 12 -> 2.25;
+                    default -> throw new IllegalStateException("Unexpected value: " + sandwichSize);
+                };
+            }
+        } else if (this.type.equals("meat")) {
+            if (hasExtra) { // Extra meat prices
+                return switch (sandwichSize) {
+                    case 4 -> 0.50;
+                    case 8 -> 1.00;
+                    case 12 -> 1.50;
+                    default -> throw new IllegalStateException("Unexpected value: " + sandwichSize);
+                };
+            } else { // Normal meat prices
+                return switch (sandwichSize) {
+                    case 4 -> 1.00;
+                    case 8 -> 2.00;
+                    case 12 -> 3.00;
+                    default -> throw new IllegalStateException("Unexpected value: " + sandwichSize);
+                };
+            }
+        }
         return 0;
     }
+
     public String getType() {
         return type;
     }
@@ -61,6 +99,6 @@ public class Topping implements Product{
 
     @Override
     public String toString() {
-        return name;
+        return hasExtra ? "+" + name : name;
     }
 }

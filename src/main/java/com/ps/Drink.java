@@ -37,4 +37,8 @@ public class Drink implements Product {
         this.size = size;
     }
 
+    @Override
+    public String toString() {
+        return String.format("%s %s", size, name);
+    }
 }

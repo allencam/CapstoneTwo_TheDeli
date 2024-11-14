@@ -7,7 +7,7 @@ public class Order {
     private ArrayList<Product> products;
 
     public Order(double total, ArrayList<Product> products) {
-        this.total = total;
+        this.total = getTotal();
         this.products = new ArrayList<>();
     }
 
@@ -32,7 +32,11 @@ public class Order {
     }
 
     public double getTotal() {
-        return total;
+        double orderTotal = 0;
+        for(Product product : products) {
+            orderTotal += product.getPrice();
+        }
+        return orderTotal;
     }
 
     public void setTotal(double total) {

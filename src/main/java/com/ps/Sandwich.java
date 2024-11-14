@@ -1,6 +1,7 @@
 package com.ps;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Sandwich implements Product{
     private String name;
@@ -23,12 +24,47 @@ public class Sandwich implements Product{
 
     @Override
     public double getPrice() {
-        return 0;
+        double sandwichPrice = switch (this.size) {
+            case 4 -> 5.50;
+            case 8 -> 7.00;
+            case 12 -> 8.50;
+            default -> throw new IllegalStateException("Unexpected value: " + this.size);
+        };
+
+        for(Topping topping : toppings) {
+            sandwichPrice += topping.getPrice(this);
+        }
+        return sandwichPrice;
     }
+
+    public void checkForExtraToppings(List<Topping> toppings) { // Execute this after any code that adds/edits meats or cheeses, to determine the extra topping
+        int meatCount = 0;
+        int cheeseCount = 0;
+
+        for (Topping topping : toppings) {
+            if (topping.getType().equals("meat")) {
+                meatCount++;
+            } if (meatCount == 2) {
+                topping.setHasExtra(true);
+            } else {
+                topping.setHasExtra(false);
+            }
+
+            if (topping.getType().equals("cheese")) {
+                cheeseCount++;
+            } if (cheeseCount == 2) {
+                topping.setHasExtra(true);
+            } else {
+                topping.setHasExtra(false);
+            }
+        }
+    }
+
 
     // TODO: Methods for handling sandwich edits
     public void addTopping(Topping topping) {
         toppings.add(topping);
+        topping.getPrice();
     }
 
     public static void removeTopping(){}
@@ -81,6 +117,6 @@ public class Sandwich implements Product{
 
     @Override
     public String toString() {
-        return String.format("%s - %.2f | %s, %d\" | Toppings: %s",name, price, breadType, size, toppings);
+        return String.format("%s - $%.2f | %s, %d\" | Toppings: %s",name, getPrice(), breadType, size, toppings);
     }
 }

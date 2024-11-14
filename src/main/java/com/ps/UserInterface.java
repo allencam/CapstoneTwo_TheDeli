@@ -227,6 +227,7 @@ public class UserInterface {
             System.out.println("Added " + meats[meatSelector - 1]);
             meatCount++;
         } while (meatCount < 2);
+        sandwich.checkForExtraToppings(sandwich.getToppings());
     } // TODO: Find out how to combine handleAddMeats/Cheeses in one method if possible, might need another Exception handler method
 
     private static void handleAddCheeses(Sandwich sandwich) {
@@ -246,6 +247,7 @@ public class UserInterface {
             System.out.println("Added " + cheeses[cheeseSelector - 1]);
             cheeseCount++;
         } while (cheeseCount < 2 && cheeseSelector != 0);
+        sandwich.checkForExtraToppings(sandwich.getToppings());
     }
 
     private static void handleAddOtherToppings(Sandwich sandwich) {
@@ -369,11 +371,11 @@ public class UserInterface {
             }
         } while (!validInput);
         order.addProduct(new Drink(name, size));
-    }
+    } // TODO: Formatting
 
     private static void handleAddChips() {
         String name = "";
-        byte chipsSelector;
+        byte chipsSelector = 0;
         do {
 
             System.out.println("""
@@ -415,24 +417,37 @@ public class UserInterface {
                 order.addProduct(new Chips(name));
             }
         } while (chipsSelector != 0);
-    }
+    } // TODO: Formatting
 
     private static void handleReviewOrder() {
-        System.out.println("===== SANDWICHES =====");
+        System.out.printf("""
+                ===============================
+                    Order Total: $%.2f
+                ===============================
+                """,order.getTotal());
+        System.out.println("""
+                    Sandwiches
+                ------------------
+                """);
         for (Product product : order.getProducts()) {
             if(product instanceof Sandwich) {
                 System.out.println(product);
                 System.out.println();
             }
         }
-        System.out.println("===== DRINKS =====");
+        System.out.println("""
+                      Drinks
+                ------------------
+                """);
         for (Product product : order.getProducts()) {
             if(product instanceof Drink) {
                 System.out.println(product);
-                System.out.println();
             }
         }
-        System.out.println("===== CHIPS =====");
+        System.out.println("""
+                      Chips
+                ------------------
+                """);
         for (Product product : order.getProducts()) {
             if(product instanceof Chips) {
                 System.out.println(product);
