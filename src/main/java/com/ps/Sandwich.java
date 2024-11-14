@@ -81,7 +81,6 @@ public class Sandwich implements Product{
 
     @Override
     public String toString() {
-        return String.format("%s - %.2f | %s, %d\" \nToppings: %s"
-                ,name, price, breadType, size, toppings);
+        return String.format("%s - %.2f | %s, %d\" | Toppings: %s",name, price, breadType, size, toppings);
     }
 }

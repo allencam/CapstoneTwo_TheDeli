@@ -61,7 +61,8 @@ public class UserInterface {
                     handleReviewOrder();
                     break;
                 case 0:
-                    System.out.println("Returning to the main menu...");
+                    order.cancelOrder();
+                    System.out.println("Order cancelled, returning to the main menu...");
                 default:
                     System.out.println("Invalid entry, try again.");
             }
@@ -202,6 +203,7 @@ public class UserInterface {
                     break;
                 case 3:
                     handleAddOtherToppings(sandwich);
+                    break;
                 case 0:
                     order.addProduct(sandwich);
             }
@@ -404,17 +406,39 @@ public class UserInterface {
                 case 4:
                     name = "Pretzels";
                     break;
+                case 0:
+                    break;
                 default:
                     System.out.println("Invalid selection, try again.");
             }
             if (!name.isEmpty()) {
                 order.addProduct(new Chips(name));
             }
-
         } while (chipsSelector != 0);
     }
 
-    private static void handleReviewOrder() {}
+    private static void handleReviewOrder() {
+        System.out.println("===== SANDWICHES =====");
+        for (Product product : order.getProducts()) {
+            if(product instanceof Sandwich) {
+                System.out.println(product);
+                System.out.println();
+            }
+        }
+        System.out.println("===== DRINKS =====");
+        for (Product product : order.getProducts()) {
+            if(product instanceof Drink) {
+                System.out.println(product);
+                System.out.println();
+            }
+        }
+        System.out.println("===== CHIPS =====");
+        for (Product product : order.getProducts()) {
+            if(product instanceof Chips) {
+                System.out.println(product);
+            }
+        }
+    }
 
     public static byte handleMenuInputMismatch(String prompt) {
         byte userInput = -1;
@@ -432,5 +456,4 @@ public class UserInterface {
         }
         return userInput;
     }
-
 }

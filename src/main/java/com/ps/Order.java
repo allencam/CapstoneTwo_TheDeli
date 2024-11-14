@@ -15,9 +15,11 @@ public class Order {
         this.products = new ArrayList<>();
     }
 
-    public static void getOrderTotal(Order order) {}
+    public void cancelOrder() {
+        products.clear();
+    }
 
-    public static void submitOrder(Order order) {}
+    public void submitOrder(Order order) {}
 
     public void removeProduct(Product product) {
         this.products.remove(product);

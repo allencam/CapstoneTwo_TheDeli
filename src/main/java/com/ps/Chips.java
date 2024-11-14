@@ -24,6 +24,6 @@ public class Chips implements Product {
 
     @Override
     public String toString() {
-        return name + ", ";
+        return name;
     }
 }
