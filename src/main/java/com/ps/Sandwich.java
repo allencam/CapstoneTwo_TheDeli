@@ -10,8 +10,7 @@ public class Sandwich implements Product {
     private boolean isToasted;
     private ArrayList<Topping> toppings;
     private double price;
-    private boolean extraMeat;
-    private boolean extraCheese;
+
 
     public Sandwich(String breadType, byte size) {
         this.name = "Custom Sandwich";
@@ -62,15 +61,10 @@ public class Sandwich implements Product {
         }
     }
 
-
-
     // TODO: Methods for handling sandwich edits
     public void addTopping(Topping topping) {
         toppings.add(topping);
         topping.getPrice(this);
-    }
-
-    public static void removeTopping() {
     }
 
     public static void editDetails() {

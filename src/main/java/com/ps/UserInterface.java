@@ -180,7 +180,8 @@ public class UserInterface {
                     (1) Meat (up to 2 selections)  Current: %d
                     (2) Cheese (up to 2)           Current: %d
                     (3) Vegetables, sauces, sides
-                                       
+                    
+                    (4) Remove toppings menu                   
                     (0) Add sandwich to order
                     """, meatCount, cheeseCount);
             toppingCategorySelector = handleMenuInputMismatch("Your selection: ");
@@ -203,6 +204,13 @@ public class UserInterface {
                     break;
                 case 3:
                     handleAddOtherToppings(sandwich);
+                    break;
+                case 4:
+                    if (!sandwich.getToppings().isEmpty()) {
+                        removeToppingMenu(sandwich);
+                    } else {
+                        System.out.println("There are no toppings to remove.");
+                    }
                     break;
                 case 0:
                     order.addProduct(sandwich);
@@ -263,14 +271,9 @@ public class UserInterface {
 
         do {
             toppingSelector = handleMenuInputMismatch("Your selection: ");
-            if (toppingSelector == 0) {
-                break;
-            }
             sandwich.addTopping(new Topping(otherToppings[toppingSelector - 1],"other"));
             System.out.println("Added " + otherToppings[toppingSelector - 1]);
-
         } while (toppingSelector != 0);
-
     } // TODO: Go back and split other toppings into different categories
 
     private static byte getMeatCount(Sandwich sandwich) {
@@ -300,7 +303,7 @@ public class UserInterface {
                 System.out.println();
             }
         }
-    }
+    } // Method for displaying 4 toppings per line, created to be used for longer lists of toppings
 
     private static void handleAddDrink() {
         String size = "";
@@ -422,6 +425,24 @@ public class UserInterface {
         } while (chipsSelector != 0);
     } // TODO: Formatting
 
+    private static void removeToppingMenu(Sandwich sandwich) {
+        byte removalSelector;
+        do {
+            sandwich.checkForExtraToppings(sandwich.getToppings());
+            if (sandwich.getToppings().isEmpty()) {
+                System.out.println("No more toppings! Going back...");
+                break;
+            }
+        System.out.println("Select topping to remove, one at a time:");
+        for (int i = 0; i < sandwich.getToppings().size(); i++) {
+            System.out.printf("(%d) %s\n",i + 1,sandwich.getToppings().get(i));
+        }
+        System.out.println("(0) Back");
+            removalSelector = handleMenuInputMismatch("Your selection: ");
+            sandwich.getToppings().remove(removalSelector - 1);
+        } while (removalSelector != 0);
+    } // TODO: Exception handling
+
     private static void handleReviewOrder() {
         System.out.printf("""
                 ===============================
@@ -471,10 +492,11 @@ public class UserInterface {
             reviewMenuCommand = handleMenuInputMismatch("Your selection: ");
             switch (reviewMenuCommand) {
                 case 1:
-                    FileManager.saveOrderReceipt(order);
-                    order.clearOrder();
+
                     break;
                 case 2:
+                    FileManager.saveOrderReceipt(order);
+                    order.clearOrder();
                     break;
                 case 0:
                     System.out.println("Returning to the menu screen...");
