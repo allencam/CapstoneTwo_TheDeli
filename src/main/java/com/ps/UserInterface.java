@@ -492,7 +492,7 @@ public class UserInterface {
             reviewMenuCommand = handleMenuInputMismatch("Your selection: ");
             switch (reviewMenuCommand) {
                 case 1:
-
+                    handleEditOrder(order);
                     break;
                 case 2:
                     FileManager.saveOrderReceipt(order);
@@ -501,8 +501,58 @@ public class UserInterface {
                 case 0:
                     System.out.println("Returning to the menu screen...");
                     break;
+                default:
+                    System.out.println("Invalid selection, try again.");
             }
         } while (reviewMenuCommand != 0 && reviewMenuCommand != 1);
+    }
+
+    private static void handleEditOrder(Order order) {
+        byte selection;
+        do {
+            System.out.println("""
+                    Select an option:
+                    (1) Edit a sandwich
+                    (2) Remove item(s)
+                                    
+                    (0) Back
+                    """);
+            selection = handleMenuInputMismatch("Your selection: ");
+
+            switch (selection) {
+                case 1:
+
+                    break;
+                case 2:
+                    removeItemsMenu(order);
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Invalid selection, try again.");
+            }
+
+        } while (selection != 0);
+    }
+
+    private static void removeItemsMenu(Order order) {
+        byte removalSelector;
+        do {
+            if (order.getProducts().isEmpty()) {
+                System.out.println("No items in order. Going back...");
+                break;
+            }
+            System.out.println("Select topping to remove, one at a time:");
+            for (int i = 0; i < order.getProducts().size(); i++) {
+                System.out.printf("(%d) %s\n",i + 1,order.getProducts().get(i));
+            }
+            System.out.println("(0) Back");
+            removalSelector = handleMenuInputMismatch("Your selection: ");
+            if (removalSelector == 0) {
+                break;
+            }
+            order.getProducts().remove(removalSelector - 1);
+        } while (removalSelector != 0);
     }
 
     public static byte handleMenuInputMismatch(String prompt) {
