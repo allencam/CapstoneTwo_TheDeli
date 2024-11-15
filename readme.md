@@ -87,6 +87,11 @@ public static byte handleMenuInputMismatch(String prompt) {
     }
 ```
 This is a method I created to handle exceptions related to input mismatch exceptions
+
+## Class Diagram
+
+![ClassDiagram.png](images/ClassDiagram.png)
+
 ## Future Enhancements
 - Add more drink and chip options.
 - Implement discounts and special offers.
