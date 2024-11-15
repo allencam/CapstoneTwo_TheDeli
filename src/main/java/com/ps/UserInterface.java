@@ -325,10 +325,11 @@ public class UserInterface {
         boolean validInput = false;
         do {
             System.out.println("""
+                    ===== DRINKS =====
                     What size drink would you like?
-                    1) Small
-                    2) Medium
-                    3) Large
+                    1) Small ($2.00)
+                    2) Medium ($2.50)
+                    3) Large ($3.00)
                     """);
             sizeSelector = handleMenuInputMismatch("Your selection: ");
             switch (sizeSelector) {
@@ -387,6 +388,7 @@ public class UserInterface {
             }
         } while (!validInput);
         order.addProduct(new Drink(name, size));
+        System.out.println("Drink added!");
     }
 
     private static void handleAddChips() {
@@ -395,8 +397,7 @@ public class UserInterface {
         do {
             String name = "";
             System.out.println("""
-                        Chips
-                    -------------
+                    ===== CHIPS =====
                     Here are the chips we have available, select as many as you would like ($1.50 per bag):
                     (1) BBQ
                     (2) Jalapeño
