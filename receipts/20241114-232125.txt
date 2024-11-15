@@ -1,0 +1,18 @@
+===============================
+    Order Total: $12.05
+===============================
+
+    Sandwiches
+------------------
+
+Custom Sandwich (not toasted) - $8.05 | Wheat, 4" | Toppings: [Steak, +Salami, American, +Swiss, Jalapeños, Tomatoes, Lettuce, Ranch]
+
+      Drinks
+------------------
+
+Medium Coca cola - $2.50
+
+      Chips
+------------------
+
+BBQ - $1.50

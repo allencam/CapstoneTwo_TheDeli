@@ -61,7 +61,7 @@ public class UserInterface {
                     handleReviewOrder();
                     break;
                 case 0:
-                    order.cancelOrder();
+                    order.clearOrder();
                     System.out.println("Order cancelled, returning to the main menu...");
                 default:
                     System.out.println("Invalid entry, try again.");
@@ -208,6 +208,7 @@ public class UserInterface {
                     order.addProduct(sandwich);
             }
         } while (toppingCategorySelector != 0);
+        sandwich.checkForExtraToppings(sandwich.getToppings());
     }
 
     private static void handleAddMeats(Sandwich sandwich) {
@@ -374,11 +375,13 @@ public class UserInterface {
     } // TODO: Formatting
 
     private static void handleAddChips() {
-        String name = "";
+
         byte chipsSelector = 0;
         do {
-
+            String name = "";
             System.out.println("""
+                        Chips
+                    -------------
                     Here are the chips we have available, select as many as you would like ($1.50 per bag):
                     (1) BBQ
                     (2) Jalapeño
@@ -425,17 +428,17 @@ public class UserInterface {
                     Order Total: $%.2f
                 ===============================
                 """,order.getTotal());
-        System.out.println("""
+        System.out.print("""
                     Sandwiches
                 ------------------
                 """);
         for (Product product : order.getProducts()) {
             if(product instanceof Sandwich) {
                 System.out.println(product);
-                System.out.println();
             }
         }
-        System.out.println("""
+        System.out.println();
+        System.out.print("""
                       Drinks
                 ------------------
                 """);
@@ -443,8 +446,10 @@ public class UserInterface {
             if(product instanceof Drink) {
                 System.out.println(product);
             }
+
         }
-        System.out.println("""
+        System.out.println();
+        System.out.print("""
                       Chips
                 ------------------
                 """);
@@ -453,6 +458,29 @@ public class UserInterface {
                 System.out.println(product);
             }
         }
+        System.out.println();
+        byte reviewMenuCommand;
+        System.out.println("""
+                Choose an option:
+                (1) Edit/Remove items
+                (2) Confirm order (save receipt)
+                
+                (0) Back
+                """);
+        do {
+            reviewMenuCommand = handleMenuInputMismatch("Your selection: ");
+            switch (reviewMenuCommand) {
+                case 1:
+                    FileManager.saveOrderReceipt(order);
+                    order.clearOrder();
+                    break;
+                case 2:
+                    break;
+                case 0:
+                    System.out.println("Returning to the menu screen...");
+                    break;
+            }
+        } while (reviewMenuCommand != 0 && reviewMenuCommand != 1);
     }
 
     public static byte handleMenuInputMismatch(String prompt) {
@@ -465,7 +493,7 @@ public class UserInterface {
                 userInput = commandScan.nextByte();
                 validInput = true;
             } catch (InputMismatchException e) {
-                System.out.println("Invalid entry, please enter a number.");
+                System.out.println("Invalid entry, try again.");
                 commandScan.nextLine();
             }
         }

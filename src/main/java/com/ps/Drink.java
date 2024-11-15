@@ -39,6 +39,6 @@ public class Drink implements Product {
 
     @Override
     public String toString() {
-        return String.format("%s %s", size, name);
+        return String.format("%s %s - $%.2f",size,name,price);
     }
 }

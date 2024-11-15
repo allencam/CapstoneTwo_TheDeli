@@ -15,17 +15,13 @@ public class Order {
         this.products = new ArrayList<>();
     }
 
-    public void cancelOrder() {
+    public void clearOrder() {
         products.clear();
     }
-
-    public void submitOrder(Order order) {}
 
     public void removeProduct(Product product) {
         this.products.remove(product);
     }
-
-    private static void editProduct() {}
 
     public void addProduct(Product product) {
         this.products.add(product);

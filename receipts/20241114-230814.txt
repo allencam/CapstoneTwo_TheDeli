@@ -1,0 +1,20 @@
+===============================
+    Order Total: $29.20
+===============================
+
+    Sandwiches
+------------------
+
+Custom Sandwich (toasted) - $8.05 | Wheat, 4" | Toppings: [Ham, +Ham, American, +Cheddar, Lettuce, Peppers, Onions, Lettuce, Ranch]
+Custom Sandwich (not toasted) - $16.15 | Rye, 12" | Toppings: [Ham, +Salami, Provolone, +Provolone, Mayo]
+
+      Drinks
+------------------
+
+Small Root beer - $2.00
+
+      Chips
+------------------
+
+BBQ - $1.50
+Salt & Vinegar - $1.50

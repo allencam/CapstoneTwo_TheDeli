@@ -3,7 +3,7 @@ package com.ps;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Sandwich implements Product{
+public class Sandwich implements Product {
     private String name;
     private String breadType;
     private byte size;
@@ -31,29 +31,31 @@ public class Sandwich implements Product{
             default -> throw new IllegalStateException("Unexpected value: " + this.size);
         };
 
-        for(Topping topping : toppings) {
+        for (Topping topping : toppings) {
             sandwichPrice += topping.getPrice(this);
         }
         return sandwichPrice;
     }
 
-    public void checkForExtraToppings(List<Topping> toppings) { // Execute this after any code that adds/edits meats or cheeses, to determine the extra topping
+    public void checkForExtraToppings(List<Topping> toppings) {
         int meatCount = 0;
         int cheeseCount = 0;
 
         for (Topping topping : toppings) {
             if (topping.getType().equals("meat")) {
                 meatCount++;
-            } if (meatCount == 2) {
-                topping.setHasExtra(true);
-            } else {
-                topping.setHasExtra(false);
-            }
-
-            if (topping.getType().equals("cheese")) {
+                if (meatCount == 2) {
+                    topping.setHasExtra(true);
+                } else {
+                    topping.setHasExtra(false);
+                }
+            } else if (topping.getType().equals("cheese")) {
                 cheeseCount++;
-            } if (cheeseCount == 2) {
-                topping.setHasExtra(true);
+                if (cheeseCount == 2) {
+                    topping.setHasExtra(true);
+                } else {
+                    topping.setHasExtra(false);
+                }
             } else {
                 topping.setHasExtra(false);
             }
@@ -61,15 +63,18 @@ public class Sandwich implements Product{
     }
 
 
+
     // TODO: Methods for handling sandwich edits
     public void addTopping(Topping topping) {
         toppings.add(topping);
-        topping.getPrice();
+        topping.getPrice(this);
     }
 
-    public static void removeTopping(){}
+    public static void removeTopping() {
+    }
 
-    public static void editDetails(){} // FOR EDITING BREAD TYPE, SIZE, TOASTINESS
+    public static void editDetails() {
+    } // FOR EDITING BREAD TYPE, SIZE, TOASTINESS
 
     public String getBreadType() {
         return breadType;
@@ -117,6 +122,7 @@ public class Sandwich implements Product{
 
     @Override
     public String toString() {
-        return String.format("%s - $%.2f | %s, %d\" | Toppings: %s",name, getPrice(), breadType, size, toppings);
+        return String.format("%s %s - $%.2f | %s, %d\" | Toppings: %s"
+                ,name,isToasted ? "(toasted)" : "(not toasted)",getPrice(),breadType,size,toppings);
     }
 }

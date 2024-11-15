@@ -22,23 +22,24 @@ public class Topping implements Product{
     public Topping(String name, String type, boolean hasExtra) {
         this.name = name;
         this.type = type;
-        this.price = getPrice();
         this.hasExtra = hasExtra;
+        this.price = getPrice();
     }
 
+    @Override
     public double getPrice() {
-        return 0;
+        return price;
     }
 
-    public double getPrice(Sandwich sandwich) { 
+    public double getPrice(Sandwich sandwich) {
         byte sandwichSize = sandwich.getSize();
 
         if (this.type.equals("cheese")) {
             if (hasExtra) { // Extra cheese prices
                 return switch (sandwichSize) {
-                    case 4 -> 0.75;
-                    case 8 -> 1.50;
-                    case 12 -> 2.25;
+                    case 4 -> 0.30;
+                    case 8 -> 0.60;
+                    case 12 -> 0.90;
                     default -> throw new IllegalStateException("Unexpected value: " + sandwichSize);
                 };
             } else { // Normal cheese prices
