@@ -1,4 +1,4 @@
-package com.ps;
+package com.ps.structure;
 
 import java.util.ArrayList;
 

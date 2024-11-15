@@ -1,4 +1,6 @@
-package com.ps;
+package com.ps.filemanagement;
+
+import com.ps.structure.*;
 
 import java.io.BufferedWriter;
 import java.io.FileWriter;

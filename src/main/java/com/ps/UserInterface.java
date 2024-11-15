@@ -1,5 +1,8 @@
 package com.ps;
 
+import com.ps.filemanagement.FileManager;
+import com.ps.structure.*;
+
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -237,7 +240,7 @@ public class UserInterface {
             meatCount++;
         } while (meatCount < 2);
         sandwich.checkForExtraToppings(sandwich.getToppings());
-    } // TODO: Find out how to combine handleAddMeats/Cheeses in one method if possible, might need another Exception handler method
+    }
 
     private static void handleAddCheeses(Sandwich sandwich) {
         String[] cheeses = {"American", "Provolone", "Cheddar", "Swiss"};
@@ -274,7 +277,7 @@ public class UserInterface {
             sandwich.addTopping(new Topping(otherToppings[toppingSelector - 1],"other"));
             System.out.println("Added " + otherToppings[toppingSelector - 1]);
         } while (toppingSelector != 0);
-    } // TODO: Go back and split other toppings into different categories
+    }
 
     private static byte getMeatCount(Sandwich sandwich) {
         byte meatCount = 0;
@@ -375,7 +378,7 @@ public class UserInterface {
             }
         } while (!validInput);
         order.addProduct(new Drink(name, size));
-    } // TODO: Formatting
+    }
 
     private static void handleAddChips() {
 
@@ -423,7 +426,7 @@ public class UserInterface {
                 order.addProduct(new Chips(name));
             }
         } while (chipsSelector != 0);
-    } // TODO: Formatting
+    }
 
     private static void removeToppingMenu(Sandwich sandwich) {
         byte removalSelector;

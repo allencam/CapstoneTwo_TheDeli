@@ -1,8 +1,6 @@
-package com.ps;
+package com.ps.structure;
 
-import java.util.List;
-
-public class Topping implements Product{
+public class Topping implements Product {
     private String name;
     private String type;
     private double price;

@@ -1,4 +1,4 @@
-package com.ps;
+package com.ps.structure;
 
 public class Drink implements Product {
     private String name;

@@ -1,4 +1,4 @@
-package com.ps;
+package com.ps.structure;
 
 public class Chips implements Product {
     private String name;
