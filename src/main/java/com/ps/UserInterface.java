@@ -274,6 +274,9 @@ public class UserInterface {
 
         do {
             toppingSelector = handleMenuInputMismatch("Your selection: ");
+            if (toppingSelector == 0) {
+                break;
+            }
             sandwich.addTopping(new Topping(otherToppings[toppingSelector - 1],"other"));
             System.out.println("Added " + otherToppings[toppingSelector - 1]);
         } while (toppingSelector != 0);
@@ -442,7 +445,9 @@ public class UserInterface {
         }
         System.out.println("(0) Back");
             removalSelector = handleMenuInputMismatch("Your selection: ");
-            sandwich.getToppings().remove(removalSelector - 1);
+            if(removalSelector != 0) {
+                sandwich.getToppings().remove(removalSelector - 1);
+            }
         } while (removalSelector != 0);
     } // TODO: Exception handling
 
@@ -500,6 +505,7 @@ public class UserInterface {
                 case 2:
                     FileManager.saveOrderReceipt(order);
                     order.clearOrder();
+                    System.out.println("Enter (0) to ");
                     break;
                 case 0:
                     System.out.println("Returning to the menu screen...");
