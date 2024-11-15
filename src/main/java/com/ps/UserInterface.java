@@ -184,7 +184,8 @@ public class UserInterface {
                     (2) Cheese (up to 2)           Current: %d
                     (3) Vegetables, sauces, sides
                     
-                    (4) Remove toppings menu                   
+                    (4) Remove toppings menu  
+                    (9) Discard sandwich                 
                     (0) Add sandwich to order
                     """, meatCount, cheeseCount);
             toppingCategorySelector = handleMenuInputMismatch("Your selection: ");
@@ -215,8 +216,13 @@ public class UserInterface {
                         System.out.println("There are no toppings to remove.");
                     }
                     break;
+                case 9:
+                    sandwich.getToppings().clear();
+                    System.out.println("Sandwich discarded, going back to order screen...");
+                    break;
                 case 0:
                     order.addProduct(sandwich);
+                    break;
             }
         } while (toppingCategorySelector != 0);
         sandwich.checkForExtraToppings(sandwich.getToppings());
